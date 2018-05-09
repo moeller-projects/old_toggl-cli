@@ -2,7 +2,7 @@
   "profiles": {
     "TogglReporter": {
       "commandName": "Project",
-      "commandLineArgs": "fill -c C:\\toggl.json"
+      "commandLineArgs": "report -c C:\\toggl.json"
     }
   }
 }

@@ -28,11 +28,16 @@ namespace togglhelper.Commands
             {
                 var minDate = Convert.ToDateTime(entries.Min(m => m.Start)).Date;
                 var maxDate = Convert.ToDateTime(entries.Max(m => m.Stop)).Date;
+                
+                var totalTime = entries
+                    .Select(entry => Convert.ToDateTime(entry.Stop)
+                                        .Subtract(Convert.ToDateTime(entry.Start)))
+                    .Aggregate(new TimeSpan(), (current, time) => current.Add(time));
 
                 if (minDate == maxDate)
                 {
                     Console.WriteLine($"{Environment.NewLine}" +
-                                      $"{minDate:dd.MM.yyyy}" +
+                                      $"{minDate:dd.MM.yyyy} - {totalTime.Hours} h {totalTime.Minutes} min" +
                                       $"{Environment.NewLine}");
 
                     ConsoleTableBuilder
@@ -59,7 +64,7 @@ namespace togglhelper.Commands
                 else
                 {
                     Console.WriteLine($"{Environment.NewLine}" +
-                                      $"{minDate:dd.MM.yyyy} - {maxDate:dd.MM.yyyy}" +
+                                      $"{minDate:dd.MM.yyyy} - {maxDate:dd.MM.yyyy} - {totalTime.Hours} h {totalTime.Minutes} min" +
                                       $"{Environment.NewLine}");
 
                     ConsoleTableBuilder
