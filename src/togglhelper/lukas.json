@@ -1,0 +1,9 @@
+{
+  "TogglApikey": "1234567891011112131sbsbbrbb44544bed5b1454141515131",
+  "ReportDaysBack": -10,
+  "WorkspaceName": "workspace",
+  "TfsProjects": [ "project1", "project2", "project3", "project4" ],
+  "TfsUri": "TfsUrl",
+  "TfsQueryName": "TogglREST",
+  "TfsQuery": "SELECT [System.Id],[System.WorkItemType],[System.Title],[System.AssignedTo],[System.State],[System.Tags] FROM WorkItems WHERE [System.TeamProject] = @project AND [System.WorkItemType] = 'Task' AND [System.AssignedTo] = @me"
+}

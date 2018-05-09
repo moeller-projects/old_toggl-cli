@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TogglReporter": {
+      "commandName": "Project",
+      "commandLineArgs": "fill -c C:\\toggl.json"
+    }
+  }
+}
