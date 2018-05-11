@@ -39,9 +39,15 @@ namespace togglhelper
                 Environment.Exit(0);
             }
 
+            _clients = _clientService.List();
+
             foreach (var tfsProjectName in tfsProjectNames)
             {
-                var client = _clientService.List().FirstOrDefault(f => f.Name == tfsProjectName && f.WorkspaceId == _workspace.Id) ?? _clientService.Add(new Client
+                var client = _clients.FirstOrDefault(f => f.Name == tfsProjectName && f.WorkspaceId == _workspace.Id);
+
+                if (client != null) continue;
+
+                client = _clientService.Add(new Client
                 {
                     Name = tfsProjectName,
                     WorkspaceId = _workspace.Id
