@@ -1,8 +1,16 @@
 {
   "profiles": {
-    "TogglReporter": {
+    "togglhelper fill": {
       "commandName": "Project",
-      "commandLineArgs": "report -c C:\\toggl.json"
+      "commandLineArgs": "fill -c C:\\toggl.json"
+    },
+    "togglhelper fill with specific items": {
+      "commandName": "Project",
+      "commandLineArgs": "fill -c c:\\toggl.json -i 42637 29121"
+    },
+    "togglhelper report": {
+      "commandName": "Project",
+      "commandLineArgs": "report -c c:\\toggl.json"
     }
   }
 }

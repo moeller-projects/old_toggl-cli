@@ -11,14 +11,20 @@ namespace togglhelper
     {
         static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<ReportArguments, FillArguments>(args)
-                .WithParsed<ReportArguments>(GetReport)
-                .WithParsed<FillArguments>(FillToggl)
-                .WithParsed<ExportArguments>(ExportReport)
-                .WithNotParsed(Errors);
+            try
+            {
+                Parser.Default.ParseArguments<ReportArguments, FillArguments>(args)
+                    .WithParsed<ReportArguments>(GetReport)
+                    .WithParsed<FillArguments>(FillToggl)
+                    .WithParsed<ExportArguments>(ExportReport)
+                    .WithNotParsed(Errors);
+            }
+            finally
+            {
 #if DEBUG
-            Console.ReadLine();
+                Console.ReadLine();
 #endif
+            }
         }
 
         private static void ExportReport(ExportArguments arguments)
@@ -31,7 +37,7 @@ namespace togglhelper
         private static void FillToggl(FillArguments arguments)
         {
             var config = ConfigHelper.GetConfig(arguments.ConfigFilePath);
-            var fill = new Fill(config);
+            var fill = new Fill(config, arguments);
             fill.FillToggl();
         }
 

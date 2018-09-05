@@ -6,7 +6,7 @@
     <StartupObject>togglhelper.Program</StartupObject>
     <Version>1.0.5</Version>
     <Authors>Lukas</Authors>
-    <Description>TogglReporter</Description>
+    <Description>togglhelper</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

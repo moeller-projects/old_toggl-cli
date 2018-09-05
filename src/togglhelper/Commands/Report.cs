@@ -18,6 +18,9 @@ namespace togglhelper.Commands
         public void GetReport()
         {
             var toggl = new Toggl(_config.TogglApikey);
+            var projects = toggl.GetAllProjects();
+            var clients = toggl.GetAllClients();
+
             var reportTimeEntries = toggl.GetTimeEntries(_config.ReportDaysBack);
 
             var groupedReportTimeEntries = reportTimeEntries
@@ -28,7 +31,7 @@ namespace togglhelper.Commands
             {
                 var minDate = Convert.ToDateTime(entries.Min(m => m.Start)).Date;
                 var maxDate = Convert.ToDateTime(entries.Max(m => m.Stop)).Date;
-                
+
                 var totalTime = entries
                     .Select(entry => Convert.ToDateTime(entry.Stop)
                                         .Subtract(Convert.ToDateTime(entry.Start)))
@@ -37,7 +40,7 @@ namespace togglhelper.Commands
                 if (minDate == maxDate)
                 {
                     Console.WriteLine($"{Environment.NewLine}" +
-                                      $"{minDate:dd.MM.yyyy} - {totalTime.Hours} h {totalTime.Minutes} min" +
+                                      $"{minDate:dd.MM.yyyy} - {Math.Round(totalTime.TotalHours, 1)} h" +
                                       $"{Environment.NewLine}");
 
                     ConsoleTableBuilder
@@ -47,11 +50,14 @@ namespace togglhelper.Commands
                             {
                                 Convert.ToDateTime(s.Start).ToString("HH:mm"),
                                 Convert.ToDateTime(s.Stop).ToString("HH:mm"),
-                                s.ClientName,
-                                s.ProjectName,
+                                Math.Round(Convert.ToDateTime(s.Stop).Subtract(Convert.ToDateTime(s.Start)).TotalHours, 1),
+                                //s.ClientName,
+                                //s.ProjectName,
+                                clients.FirstOrDefault(client => client.Id == projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.ClientId && client.WorkspaceId == s.WorkspaceId)?.Name,
+                                projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.Name,
                                 s.Description
                             }).ToList())
-                        .WithColumn("Start", "End", "Client", "Project", "Note")
+                        .WithColumn("Start", "End", "Elapsed", "Client", "Project", "Note")
                         .WithFormat(ConsoleTableBuilderFormat.MarkDown)
                         .WithOptions(new ConsoleTableBuilderOption
                         {
@@ -64,11 +70,11 @@ namespace togglhelper.Commands
                 else
                 {
                     Console.WriteLine($"{Environment.NewLine}" +
-                                      $"{minDate:dd.MM.yyyy} - {maxDate:dd.MM.yyyy} - {totalTime.Hours} h {totalTime.Minutes} min" +
+                                      $"{minDate:dd.MM.yyyy} - {maxDate:dd.MM.yyyy} - {Math.Round(totalTime.TotalHours, 1)} h" +
                                       $"{Environment.NewLine}");
 
                     ConsoleTableBuilder
-                        .From(reportTimeEntries
+                        .From(entries
                             .OrderBy(o => Convert.ToDateTime(o.Start))
                             .Select(s => new List<object>
                             {
@@ -76,11 +82,14 @@ namespace togglhelper.Commands
                                 Convert.ToDateTime(s.Start).ToString("HH:mm"),
                                 Convert.ToDateTime(s.Stop).ToString("dd.MM.yyyy"),
                                 Convert.ToDateTime(s.Stop).ToString("HH:mm"),
-                                s.ClientName,
-                                s.ProjectName,
+                                Math.Round(Convert.ToDateTime(s.Stop).Subtract(Convert.ToDateTime(s.Start)).TotalHours, 1),
+                                //s.ClientName,
+                                //s.ProjectName,
+                                clients.FirstOrDefault(client => client.Id == projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.ClientId && client.WorkspaceId == s.WorkspaceId)?.Name,
+                                projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.Name,
                                 s.Description
                             }).ToList())
-                        .WithColumn("Start Date", "Time", "Stop Date", "Time", "Client", "Project", "Note")
+                        .WithColumn("Start Date", "Time", "Stop Date", "Time", "Elapsed", "Client", "Project", "Note")
                         .WithFormat(ConsoleTableBuilderFormat.MarkDown)
                         .WithOptions(new ConsoleTableBuilderOption
                         {

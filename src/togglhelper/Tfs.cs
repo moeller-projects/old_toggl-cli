@@ -78,6 +78,21 @@ namespace togglhelper
             return resultList;
         }
 
+        public IEnumerable<WorkItem> GetSpecificWorkItem(IEnumerable<int> itemIds)
+        {
+            try
+            {
+                return (itemIds ?? throw new ArgumentNullException(nameof(itemIds))).Any()
+                        ? _witClient.GetWorkItemsAsync(itemIds).Result
+                        : Enumerable.Empty<WorkItem>();
+            }
+            catch (AggregateException exception) when (exception.InnerException is VssServiceException)
+            {
+                Console.WriteLine(exception.InnerException.Message);
+                return Enumerable.Empty<WorkItem>();
+            }
+        }
+
         //public void CreateWorkItem(ReportTimeEntry timeEntry, string projectName)
         //{
         //    var patchDocument = new JsonPatchDocument
