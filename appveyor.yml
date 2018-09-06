@@ -2,17 +2,22 @@ version: 1.0.{build}
 image: Visual Studio 2017
 configuration: Release
 platform: Any CPU
-before_build:
-- ps: dotnet restore ./src/toggl-cli.sln
-build:
-  project: src/toggl-cli.sln
-  publish_wap: true
-  publish_azure: true
-  publish_aspnet_core: true
-  publish_core_console: true
-  verbosity: detailed
+build_script:
+- ps: >-
+    $root = $(Get-Location).Path
+    $solution = "$($root)\src\toggl-cli.sln"
+    $build = "$($root)\build\toggl-cli"
+    $publish = "$($root)\release\toggl-cli"
+    $configuration = "Release"
+    $runtime = "win-x86"
+    $framework = "net471"
+    dotnet restore $solution
+    dotnet clean $solution
+    dotnet restore $solution
+    dotnet build --output $build --configuration $configuration --runtime $runtime --framework $framework $solution
+    dotnet publish --output $publish --configuration $configuration --runtime $runtime --framework $framework $solution
 artifacts:
-- path: src/togglhelper/bin/Release/net471
+- path: release/toggl-cli
   name: togglhelper
 deploy:
 - provider: GitHub
@@ -20,5 +25,5 @@ deploy:
   release: togglhelper-v$(APPVEYOR_BUILD_NUMBER)
   description: $(APPVEYOR_REPO_COMMIT_MESSAGE)
   auth_token:
-    secure: 6xfG7NvkWTPVnrs7YtBxvhQtNNekUqvNsA1XMNFZD+yjEq7Rgk+P0sv9qEzPaE2Jy8dxsEtvs7ec3LqWj2Kdt38Htrawp9t/33A0qG9VVPw=
+    secure: MhikBEWdDfumEdvLUnHnGzSpCTLSkhOcISRGAmRNz6Y9MymD6gEl4aO1SBrYPBe7
   artifact: togglhelper
