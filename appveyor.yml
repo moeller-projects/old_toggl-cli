@@ -3,7 +3,7 @@ image: Visual Studio 2017
 configuration: Release
 platform: Any CPU
 before_build:
-- ps: dotnet restore $(APPVEYOR_BUILD_FOLDER)/src/toggl-cli.sln
+- ps: dotnet restore ./src/toggl-cli.sln
 build:
   project: src/toggl-cli.sln
   publish_core_console: true
