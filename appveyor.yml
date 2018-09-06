@@ -23,8 +23,8 @@ artifacts:
   name: togglhelper
 deploy:
 - provider: GitHub
-  tag: togglhelper-v$(APPVEYOR_BUILD_NUMBER)
-  release: togglhelper-v$(APPVEYOR_BUILD_NUMBER)
+  tag: togglhelper-v$(APPVEYOR_BUILD_VERSION)
+  release: togglhelper-v$(APPVEYOR_BUILD_VERSION)
   description: $(APPVEYOR_REPO_COMMIT_MESSAGE)
   auth_token:
     secure: MhikBEWdDfumEdvLUnHnGzSpCTLSkhOcISRGAmRNz6Y9MymD6gEl4aO1SBrYPBe7
