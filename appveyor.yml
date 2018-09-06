@@ -1,0 +1,21 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU
+before_build:
+- ps: dotnet restore
+build:
+  project: src/toggl-cli.sln
+  publish_core_console: true
+  verbosity: minimal
+artifacts:
+- path: src/togglhelper/bin/Release/net471
+  name: togglhelper
+deploy:
+- provider: GitHub
+  tag: togglhelper-v$(APPVEYOR_BUILD_NUMBER)
+  release: togglhelper-v$(APPVEYOR_BUILD_NUMBER)
+  description: $(APPVEYOR_REPO_COMMIT_MESSAGE)
+  auth_token:
+    secure: 6xfG7NvkWTPVnrs7YtBxvhQtNNekUqvNsA1XMNFZD+yjEq7Rgk+P0sv9qEzPaE2Jy8dxsEtvs7ec3LqWj2Kdt38Htrawp9t/33A0qG9VVPw=
+  artifact: togglhelper
