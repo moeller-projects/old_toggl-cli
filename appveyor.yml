@@ -1,4 +1,4 @@
-version: 2.0.{build}
+version: {build}
 branches:
   only:
   - master
@@ -16,16 +16,18 @@ dotnet_csproj:
 image: Visual Studio 2017
 configuration: Release
 platform: Any CPU
+init:
+  - ps: Update-AppveyorBuild -Version "v$(Get-Date -format yyyy.M).$env:appveyor_build_number"
 build_script:
-- ps: cd $env:APPVEYOR_BUILD_FOLDER/deploy; .\deploy.ps1
+  - ps: cd $env:APPVEYOR_BUILD_FOLDER/deploy; .\deploy.ps1
 artifacts:
-- path: release/toggl-cli
-  name: togglhelper
+  - path: release/toggl-cli
+    name: togglhelper-v$(APPVEYOR_BUILD_VERSION)
 deploy:
-- provider: GitHub
-  tag: togglhelper-v$(APPVEYOR_BUILD_VERSION)
-  release: togglhelper-v$(APPVEYOR_BUILD_VERSION)
-  description: $(APPVEYOR_REPO_COMMIT_MESSAGE)
-  auth_token:
-    secure: MhikBEWdDfumEdvLUnHnGzSpCTLSkhOcISRGAmRNz6Y9MymD6gEl4aO1SBrYPBe7
-  artifact: togglhelper
+  - provider: GitHub
+    tag: v$(APPVEYOR_BUILD_VERSION)
+    release: v$(APPVEYOR_BUILD_VERSION)
+    description: $(APPVEYOR_REPO_COMMIT_MESSAGE)
+    auth_token:
+      secure: MhikBEWdDfumEdvLUnHnGzSpCTLSkhOcISRGAmRNz6Y9MymD6gEl4aO1SBrYPBe7
+    artifact: togglhelper
