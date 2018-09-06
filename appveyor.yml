@@ -4,11 +4,11 @@ configuration: Release
 platform: Any CPU
 build_script:
 - ps: >-
-    dotnet restore $env:APPVEYOR_BUILD_FOLDER/src/toggl-cli.sln
-    dotnet clean $env:APPVEYOR_BUILD_FOLDER/src/toggl-cli.sln
-    dotnet restore $env:APPVEYOR_BUILD_FOLDER/src/toggl-cli.sln
-    dotnet build --output $env:APPVEYOR_BUILD_FOLDER/build/toggl-cli --configuration Release --runtime win-x86 --framework net471 $env:APPVEYOR_BUILD_FOLDER/src/toggl-cli.sln
-    dotnet publish --output $env:APPVEYOR_BUILD_FOLDER/release/toggl-cli --configuration Release --runtime win-x86 --framework net471 $env:APPVEYOR_BUILD_FOLDER/src/toggl-cli.sln
+    dotnet restore $env:APPVEYOR_BUILD_FOLDER/src/toggl-cli.sln;
+    dotnet clean $env:APPVEYOR_BUILD_FOLDER/src/toggl-cli.sln;
+    dotnet restore $env:APPVEYOR_BUILD_FOLDER/src/toggl-cli.sln;
+    dotnet build --output $env:APPVEYOR_BUILD_FOLDER/build/toggl-cli --configuration Release --runtime win-x86 --framework net471 $env:APPVEYOR_BUILD_FOLDER/src/toggl-cli.sln;
+    dotnet publish --output $env:APPVEYOR_BUILD_FOLDER/release/toggl-cli --configuration Release --runtime win-x86 --framework net471 $env:APPVEYOR_BUILD_FOLDER/src/toggl-cli.sln;
 artifacts:
 - path: release/toggl-cli
   name: togglhelper
