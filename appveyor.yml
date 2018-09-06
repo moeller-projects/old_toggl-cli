@@ -4,18 +4,18 @@ configuration: Release
 platform: Any CPU
 build_script:
 - ps: >-
-    $root = $(Get-Location).Path
-    $solution = "$($root)\src\toggl-cli.sln"
-    $build = "$($root)\build\toggl-cli"
-    $publish = "$($root)\release\toggl-cli"
-    $configuration = "Release"
-    $runtime = "win-x86"
-    $framework = "net471"
-    dotnet restore $solution
-    dotnet clean $solution
-    dotnet restore $solution
-    dotnet build --output $build --configuration $configuration --runtime $runtime --framework $framework $solution
-    dotnet publish --output $publish --configuration $configuration --runtime $runtime --framework $framework $solution
+    $env:root = $(Get-Location).Path
+    $env:solution = "$($env:root)\src\toggl-cli.sln"
+    $env:build = "$($env:root)\build\toggl-cli"
+    $env:publish = "$($env:root)\release\toggl-cli"
+    $env:configuration = "Release"
+    $env:runtime = "win-x86"
+    $env:framework = "net471"
+    dotnet restore $env:solution
+    dotnet clean $env:solution
+    dotnet restore $env:solution
+    dotnet build --output $env:build --configuration $env:configuration --runtime $env:runtime --framework $env:framework $env:solution
+    dotnet publish --output $env:publish --configuration $env:configuration --runtime $env:runtime --framework $env:framework $env:solution
 artifacts:
 - path: release/toggl-cli
   name: togglhelper
