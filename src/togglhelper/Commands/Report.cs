@@ -57,7 +57,7 @@ namespace togglhelper.Commands
                                 projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.Name,
                                 s.Description
                             }).ToList())
-                        .WithColumn("Start", "End", "Elapsed", "Client", "Project", "Note")
+                        .WithColumn("Start", "End", "Elapsed (in h)", "Client", "Project", "Note")
                         .WithFormat(ConsoleTableBuilderFormat.MarkDown)
                         .WithOptions(new ConsoleTableBuilderOption
                         {
@@ -89,7 +89,7 @@ namespace togglhelper.Commands
                                 projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.Name,
                                 s.Description
                             }).ToList())
-                        .WithColumn("Start Date", "Time", "Stop Date", "Time", "Elapsed", "Client", "Project", "Note")
+                        .WithColumn("Start Date", "Time", "Stop Date", "Time", "Elapsed (in h)", "Client", "Project", "Note")
                         .WithFormat(ConsoleTableBuilderFormat.MarkDown)
                         .WithOptions(new ConsoleTableBuilderOption
                         {
