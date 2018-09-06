@@ -4,7 +4,7 @@ mono: none
 dotnet: 2.1.401
 
 install:
-- dotnet restore
+- dotnet restore ${TRAVIS_BUILD_DIR}\src\toggl-cli.sln
 
 script:
-- dotnet build --output ..\..\build\toggl-cli --configuration Release --runtime win-x86 --framework net471 .\src\toggl-cli.sln
+- dotnet build --output ${TRAVIS_BUILD_DIR}\build\toggl-cli --configuration Release --runtime win-x86 --framework net471 ${TRAVIS_BUILD_DIR}\src\toggl-cli.sln
