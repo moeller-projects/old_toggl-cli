@@ -6,8 +6,11 @@ before_build:
 - ps: dotnet restore ./src/toggl-cli.sln
 build:
   project: src/toggl-cli.sln
+  publish_wap: true
+  publish_azure: true
+  publish_aspnet_core: true
   publish_core_console: true
-  verbosity: minimal
+  verbosity: detailed
 artifacts:
 - path: src/togglhelper/bin/Release/net471
   name: togglhelper
