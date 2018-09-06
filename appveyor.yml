@@ -17,7 +17,7 @@ image: Visual Studio 2017
 configuration: Release
 platform: Any CPU
 init:
-  - ps: Update-AppveyorBuild -Version "v$(Get-Date -format yyyy.M).$env:appveyor_build_number"
+  - ps: Update-AppveyorBuild -Version "$(Get-Date -format yyyy.M).$env:appveyor_build_number"
 build_script:
   - ps: cd $env:APPVEYOR_BUILD_FOLDER/deploy; .\deploy.ps1
 artifacts:
@@ -30,4 +30,4 @@ deploy:
     description: $(APPVEYOR_REPO_COMMIT_MESSAGE)
     auth_token:
       secure: MhikBEWdDfumEdvLUnHnGzSpCTLSkhOcISRGAmRNz6Y9MymD6gEl4aO1SBrYPBe7
-    artifact: togglhelper
+    artifact: togglhelper-v$(APPVEYOR_BUILD_VERSION)
