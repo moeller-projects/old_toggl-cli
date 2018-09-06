@@ -51,8 +51,6 @@ namespace togglhelper.Commands
                                 Math.Round(Convert.ToDateTime(s.Stop).Subtract(Convert.ToDateTime(s.Start)).TotalHours, 1),
                                 s.ClientName,
                                 s.ProjectName,
-                                //clients.FirstOrDefault(client => client.Id == projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.ClientId && client.WorkspaceId == s.WorkspaceId)?.Name,
-                                //projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.Name,
                                 s.Description
                             }).ToList())
                         .WithColumn("Start", "End", "Elapsed (in h)", "Client", "Project", "Note")
@@ -83,8 +81,6 @@ namespace togglhelper.Commands
                                 Math.Round(Convert.ToDateTime(s.Stop).Subtract(Convert.ToDateTime(s.Start)).TotalHours, 1),
                                 s.ClientName,
                                 s.ProjectName,
-                                //clients.FirstOrDefault(client => client.Id == projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.ClientId && client.WorkspaceId == s.WorkspaceId)?.Name,
-                                //projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.Name,
                                 s.Description
                             }).ToList())
                         .WithColumn("Start Date", "Time", "Stop Date", "Time", "Elapsed (in h)", "Client", "Project", "Note")

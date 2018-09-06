@@ -105,55 +105,17 @@ namespace togglhelper
             {
                 if (!workspace.Id.HasValue) continue;
 
-                var nextPage = 1;
-                while (true)
+                var reportPage = _reportService.FullDetailedReport(new DetailedReportParams
                 {
-                    var reportPage = _reportService.Detailed(new DetailedReportParams
-                    {
-                        UserAgent = "TogglReporter",
-                        WorkspaceId = (int)workspace.Id,
-                        Since = DateTime.Now.AddDays(daysBack).ToIsoDateStr(),
-                        Page = nextPage,
+                    UserAgent = "TogglReporter",
+                    WorkspaceId = (int)workspace.Id,
+                    Since = DateTime.Now.AddDays(daysBack).ToIsoDateStr()
+                });
 
-                    });
-
-                    result.AddRange(reportPage.Data);
-
-                    if (reportPage.PerPage * nextPage < reportPage.TotalCount)
-                    {
-                        nextPage += 1;
-                        continue;
-                    }
-                    break;
-                }
+                result.AddRange(reportPage.Data);
             }
 
             return result;
-
-            //var result = new List<TimeEntry>();
-            //foreach (var workspace in _workspaceService.List())
-            //{
-            //    if (workspace.Id.HasValue)
-            //    {
-            //        result.AddRange(_timeEntryService.List(new TimeEntryParams()
-            //        {
-            //            WorkspaceId = (int)workspace.Id,
-            //            StartDate = DateTime.Now.AddDays(daysBack)
-            //        }));
-            //    }
-            //}
-
-            //return result;
-        }
-
-        public IEnumerable<Project> GetAllProjects()
-        {
-            return _projectService.List();
-        }
-
-        public IEnumerable<Client> GetAllClients()
-        {
-            return _clientService.List();
         }
     }
 }
