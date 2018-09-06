@@ -18,8 +18,6 @@ namespace togglhelper.Commands
         public void GetReport()
         {
             var toggl = new Toggl(_config.TogglApikey);
-            var projects = toggl.GetAllProjects();
-            var clients = toggl.GetAllClients();
 
             var reportTimeEntries = toggl.GetTimeEntries(_config.ReportDaysBack);
 
@@ -51,10 +49,10 @@ namespace togglhelper.Commands
                                 Convert.ToDateTime(s.Start).ToString("HH:mm"),
                                 Convert.ToDateTime(s.Stop).ToString("HH:mm"),
                                 Math.Round(Convert.ToDateTime(s.Stop).Subtract(Convert.ToDateTime(s.Start)).TotalHours, 1),
-                                //s.ClientName,
-                                //s.ProjectName,
-                                clients.FirstOrDefault(client => client.Id == projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.ClientId && client.WorkspaceId == s.WorkspaceId)?.Name,
-                                projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.Name,
+                                s.ClientName,
+                                s.ProjectName,
+                                //clients.FirstOrDefault(client => client.Id == projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.ClientId && client.WorkspaceId == s.WorkspaceId)?.Name,
+                                //projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.Name,
                                 s.Description
                             }).ToList())
                         .WithColumn("Start", "End", "Elapsed (in h)", "Client", "Project", "Note")
@@ -83,10 +81,10 @@ namespace togglhelper.Commands
                                 Convert.ToDateTime(s.Stop).ToString("dd.MM.yyyy"),
                                 Convert.ToDateTime(s.Stop).ToString("HH:mm"),
                                 Math.Round(Convert.ToDateTime(s.Stop).Subtract(Convert.ToDateTime(s.Start)).TotalHours, 1),
-                                //s.ClientName,
-                                //s.ProjectName,
-                                clients.FirstOrDefault(client => client.Id == projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.ClientId && client.WorkspaceId == s.WorkspaceId)?.Name,
-                                projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.Name,
+                                s.ClientName,
+                                s.ProjectName,
+                                //clients.FirstOrDefault(client => client.Id == projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.ClientId && client.WorkspaceId == s.WorkspaceId)?.Name,
+                                //projects.FirstOrDefault(project => project.Id == s.ProjectId && project.WorkspaceId == s.WorkspaceId)?.Name,
                                 s.Description
                             }).ToList())
                         .WithColumn("Start Date", "Time", "Stop Date", "Time", "Elapsed (in h)", "Client", "Project", "Note")

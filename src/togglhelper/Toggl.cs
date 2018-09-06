@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Toggl;
+using Toggl.DataObjects;
+using Toggl.Extensions;
 using Toggl.QueryObjects;
 using Toggl.Services;
 
@@ -96,37 +98,52 @@ namespace togglhelper
             }
         }
 
-        public IList<TimeEntry> GetTimeEntries(int daysBack)
+        public IList<ReportTimeEntry> GetTimeEntries(int daysBack)
         {
-            //var result = new List<ReportTimeEntry>();
-            //foreach (var workspace in _workspaceService.List())
-            //{
-            //    if (workspace.Id.HasValue)
-            //    {
-            //        result.AddRange(_reportService.Detailed(new DetailedReportParams
-            //        {
-            //            UserAgent = "TogglReporter",
-            //            WorkspaceId = (int)workspace.Id,
-            //            Since = DateTime.Now.AddDays(daysBack).ToIsoDateStr()
-            //        }).Data);
-            //    }
-            //}
-
-            //return result;
-            var result = new List<TimeEntry>();
+            var result = new List<ReportTimeEntry>();
             foreach (var workspace in _workspaceService.List())
             {
-                if (workspace.Id.HasValue)
+                if (!workspace.Id.HasValue) continue;
+
+                var nextPage = 1;
+                while (true)
                 {
-                    result.AddRange(_timeEntryService.List(new TimeEntryParams()
+                    var reportPage = _reportService.Detailed(new DetailedReportParams
                     {
+                        UserAgent = "TogglReporter",
                         WorkspaceId = (int)workspace.Id,
-                        StartDate = DateTime.Now.AddDays(daysBack)
-                    }));
+                        Since = DateTime.Now.AddDays(daysBack).ToIsoDateStr(),
+                        Page = nextPage,
+
+                    });
+
+                    result.AddRange(reportPage.Data);
+
+                    if (reportPage.PerPage * nextPage < reportPage.TotalCount)
+                    {
+                        nextPage += 1;
+                        continue;
+                    }
+                    break;
                 }
             }
 
             return result;
+
+            //var result = new List<TimeEntry>();
+            //foreach (var workspace in _workspaceService.List())
+            //{
+            //    if (workspace.Id.HasValue)
+            //    {
+            //        result.AddRange(_timeEntryService.List(new TimeEntryParams()
+            //        {
+            //            WorkspaceId = (int)workspace.Id,
+            //            StartDate = DateTime.Now.AddDays(daysBack)
+            //        }));
+            //    }
+            //}
+
+            //return result;
         }
 
         public IEnumerable<Project> GetAllProjects()
