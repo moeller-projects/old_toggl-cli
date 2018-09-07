@@ -20,6 +20,8 @@ init:
   - ps: Update-AppveyorBuild -Version "$(Get-Date -format yyyy.M).$env:appveyor_build_number"
 build_script:
   - ps: cd $env:APPVEYOR_BUILD_FOLDER/deploy; .\deploy.ps1
+test_script:
+  - ps: cd $env:APPVEYOR_BUILD_FOLDER/deploy; .\test.ps1
 artifacts:
   - path: release/toggl-cli
     name: togglhelper-v$(APPVEYOR_BUILD_VERSION)

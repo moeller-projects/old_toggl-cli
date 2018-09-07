@@ -11,6 +11,14 @@
     "togglhelper report": {
       "commandName": "Project",
       "commandLineArgs": "report -c c:\\toggl.json"
+    },
+    "togglhelper help": {
+      "commandName": "Project",
+      "commandLineArgs": "help"
+    },
+    "togglhelper version": {
+      "commandName": "Project",
+      "commandLineArgs": "version"
     }
   }
 }

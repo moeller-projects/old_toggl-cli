@@ -263,3 +263,4 @@ __pycache__/
 # own stuff
 [Bb]uild/
 [Rr]elease/
+[Tt]est/
