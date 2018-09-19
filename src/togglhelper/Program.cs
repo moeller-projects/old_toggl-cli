@@ -13,9 +13,10 @@ namespace togglhelper
         {
             try
             {
-                Parser.Default.ParseArguments<ReportArguments, FillArguments>(args)
+                Parser.Default.ParseArguments<ReportArguments, FillArguments, BatchArguments>(args)
                     .WithParsed<ReportArguments>(GetReport)
                     .WithParsed<FillArguments>(FillToggl)
+                    .WithParsed<BatchArguments>(BatchOperation)
                     .WithParsed<ExportArguments>(ExportReport)
                     .WithNotParsed(Errors);
             }
@@ -46,6 +47,13 @@ namespace togglhelper
             var config = ConfigHelper.GetConfig(arguments.ConfigFilePath);
             var report = new Report(config);
             report.GetReport();
+        }
+
+        private static void BatchOperation(BatchArguments arguments)
+        {
+            var config = ConfigHelper.GetConfig(arguments.ConfigFilePath);
+            var batch = new Batch(config, arguments);
+            batch.Execute();
         }
 
         private static void Errors(IEnumerable<Error> errors)

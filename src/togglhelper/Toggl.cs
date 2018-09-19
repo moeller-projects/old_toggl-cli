@@ -117,5 +117,23 @@ namespace togglhelper
 
             return result;
         }
+
+        public void CreateTimeEntry(string workspaceName, DateTime from, DateTime to, string description)
+        {
+            var _workspace = _workspaceService.List().FirstOrDefault(f => f.Name == workspaceName);
+            var result = _timeEntryService.Add(new TimeEntry
+            {
+                WorkspaceId = _workspace.Id,
+                CreatedWith = "togglhelper",
+                Start = from.ToIsoDateStr(),
+                Stop = to.ToIsoDateStr(),
+                Duration = (long)to.Subtract(from).TotalSeconds,
+                Description = description
+            });
+            if (result != null)
+            {
+                Console.WriteLine($"created time entry \"{description}\" for {to.Subtract(from).TotalHours} hours at {from.ToShortDateString()}");
+            }
+        }
     }
 }
