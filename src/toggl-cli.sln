@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "togglhelper", "togglhelper\togglhelper.csproj", "{DE7C7B6B-016C-40A6-856B-6A94DD5BDCF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "togglhelper.Unit.Tests", "togglhelper.Unit.Tests\togglhelper.Unit.Tests.csproj", "{0C413BA4-572E-4881-8013-5EE371944CDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "togglhelper.Unit.Tests", "togglhelper.Unit.Tests\togglhelper.Unit.Tests.csproj", "{0C413BA4-572E-4881-8013-5EE371944CDD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{9B7885E0-F69E-46C4-BBA6-FA4598242B3E}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{3913B6
 	ProjectSection(SolutionItems) = preProject
 		..\deploy\build.ps1 = ..\deploy\build.ps1
 		..\deploy\deploy.ps1 = ..\deploy\deploy.ps1
+		..\deploy\pack.ps1 = ..\deploy\pack.ps1
+		..\deploy\test.ps1 = ..\deploy\test.ps1
 	EndProjectSection
 EndProject
 Global

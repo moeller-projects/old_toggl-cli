@@ -2,9 +2,15 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <RuntimeIdentifiers>win-x64;win7-x64;win10-x64;osx.10.11-x64;ubuntu.16.04-x64</RuntimeIdentifiers>
     <StartupObject>togglhelper.Program</StartupObject>
+    <PackageTargetFallback>net461</PackageTargetFallback>
+
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>togglhelper</ToolCommandName>
+    <PackageOutputPath>../../pack/nuget</PackageOutputPath>
+
     <Version>2.0</Version>
     <Authors>Lukas</Authors>
     <Description>togglhelper</Description>
@@ -13,6 +19,8 @@
     <RepositoryUrl>https://github.com/lftkv/toggl-cli</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>toggl, timetracking</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
