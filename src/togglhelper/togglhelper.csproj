@@ -42,7 +42,7 @@
     <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="15.132.0-preview" />
     <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="15.132.0-preview" />
     <PackageReference Include="Microsoft.VisualStudio.Services.InteractiveClient" Version="15.132.0-preview" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
     <PackageReference Include="TogglAPI.Net" Version="0.2.0" />
   </ItemGroup>
